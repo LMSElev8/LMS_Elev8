@@ -7,7 +7,7 @@ namespace LMS_Project.Models
         public static async Task InitAsync(IServiceProvider service)
         {
             var roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = service.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = service.GetRequiredService<UserManager<AppUser>>();
 
             string[] roleNames = {"Admin", "User", "Instructor"};
 
@@ -28,7 +28,7 @@ namespace LMS_Project.Models
 
             if(userManager.FindByEmailAsync(email).Result == null){
 
-                IdentityUser admin = new()
+                AppUser admin = new()
                 {
                     Email = email,
                     UserName = email
