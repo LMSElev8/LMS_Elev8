@@ -4,21 +4,16 @@ using System.Diagnostics;
 
 namespace LMS_Project.Controllers
 {
-    public class CourseListController : Controller
+    public class CourseDetailsController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public CourseListController(ILogger<HomeController> logger)
+        public CourseDetailsController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult EnrolledCourses()
         {
             return View();
         }
