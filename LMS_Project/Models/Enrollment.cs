@@ -10,13 +10,13 @@ namespace LMS_Project.Models
         [Key]
         public int UniqueId { get; set; }
 
-        [ForeignKey("IdentityUser")]
+        [ForeignKey("AppUser")]
         public string? UserId { get; set; } // Foreign key
 
         [ForeignKey("Course")]
         public int? CourseId { get; set; } // Foreign key
         public DateTime EnrollmentDate { get; set; }
-        public IdentityUser User { get; set; } // Navigation property
+        public AppUser User { get; set; } // Navigation property
         
         public Course Course { get; set; } // Navigation property
     }
