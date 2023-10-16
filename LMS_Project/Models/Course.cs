@@ -18,7 +18,11 @@ namespace LMS_Project.Models
         [StringLength(50, ErrorMessage = "Category must be a maximum of 50 characters.")]
         public string Category { get; set; }
         public int EnrollmentCount { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
+
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
+
         public List<Assignment>? Assignments { get; set; }
         public List<Enrollment>? Enrollments { get; set; }
 

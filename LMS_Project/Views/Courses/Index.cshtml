@@ -2,15 +2,17 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = null;
 }
+<div>
+    <p style="font-size: 30px; font-weight: 500; margin:25px; text-align: center;">
+        Course Dashboard
+    </p>
+</div>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<button style="border-width: 2px; margin-top:10px; margin-bottom:30px; margin-left:20px; ">
+    <a asp-action="Create">Create Course</a>
+</button>
+<table  style="margin-left:20px;  ">
     <thead>
         <tr>
             <th>
@@ -49,7 +51,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ImageUrl)
             </td>
-            <td>
+            <td style="width: 200px">
                 <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CourseId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>

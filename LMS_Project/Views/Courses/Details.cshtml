@@ -4,45 +4,60 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 style="text-align: center;">Course Details</h1>
+<hr />
 
 <div>
-    <h4>Course</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.Category)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.EnrollmentCount)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.EnrollmentCount)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
+        <dd class = "col-sm-2"></dd>
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
+            Uploaded image
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
+        <dd class = "col-sm-3">
+            <img src="@("~/image/"+Model.ImageUrl)" asp-append-version="true" width="350px" />
         </dd>
+        <dd class = "col-sm-2"></dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CourseId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div style="text-align:center; padding:10px; margin-bottom:5px">
+    <a style="border:3px solid;padding:10px" asp-action="Edit" asp-route-id="@Model?.CourseId">Edit</a> 
+    <a style="border:3px solid;padding:10px" asp-action="Index">Back to List</a>
 </div>

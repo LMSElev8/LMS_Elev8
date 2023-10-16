@@ -4,48 +4,62 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1 style="text-align: center;">Delete Course</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 style="text-align: center;">Are you sure you want to delete this?</h3>
 <div>
-    <h4>Course</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.Category)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.EnrollmentCount)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.EnrollmentCount)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
+        <dd class = "col-sm-2"></dd>
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
+            Uploaded image
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
+        <dd class = "col-sm-3">
+            <img src="@("~/image/"+Model.ImageUrl)" asp-append-version="true" width="350px" />
         </dd>
+        <dd class = "col-sm-2"></dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form style="text-align: center; margin-bottom:15px" asp-action="Delete">
         <input type="hidden" asp-for="CourseId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <a style="border:3px solid;padding:7px" asp-action="Index">Back to List</a>
     </form>
 </div>
