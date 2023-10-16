@@ -1,4 +1,4 @@
-@model IEnumerable<LMS_Project.Models.Course>
+@model LMS_Project.Models.EnrollNotEnrollModel
 
 		<div class="page-content bg-white">
         <!-- inner page banner -->
@@ -45,7 +45,7 @@
 						</div>
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="row">
-								@foreach (var item in Model) {
+								@foreach (var item in Model.EnrollCourse) {
 									<div class="col-md-6 col-lg-4 col-sm-6 m-b30">
 										<div class="cours-bx">
 											<div class="action-box">
@@ -61,9 +61,40 @@
 													<span style="font-size: 13px;">Enrollments</span>
 												</div>
 												<div style="margin:auto">
-													<button 
-													onMouseOver="this.style.backgroundColor='#FFA500';this.style.color='#F0FFFF'" 
-													onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#000000'">Enroll</button>
+													<form action="@Url.Action("Index", "CourseList")" method="post">
+														<input type="hidden" name="parameterName" value="@item.CourseId" />
+														<input type="hidden" name="parameterName2" value="test2" />
+														<button style="background-color: #32CD32; color: #F0FFFF"type="submit">Enrolled</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								}
+								
+								@foreach (var item in Model.NotEnrollCourse) {
+									<div class="col-md-6 col-lg-4 col-sm-6 m-b30">
+										<div class="cours-bx">
+											<div class="action-box">
+												<img src="@("~/image/"+item.ImageUrl)" asp-append-version="true" />
+											</div>
+											<div class="info-bx text-center">
+												<h5><a asp-controller="CourseDetails" asp-action="Index" asp-route-id="@item.CourseId">@item.Title</a></h5>
+												<span>@item.Category</span>
+											</div>
+											<div class="cours-more-info">
+												<div class="review">
+													<span style="font-size: 13px;">@item.EnrollmentCount</span>
+													<span style="font-size: 13px;">Enrollments</span>
+												</div>
+												<div style="margin:auto">
+													
+													<form action="@Url.Action("Index", "CourseList")" method="post">
+														<input type="hidden" name="parameterName" value="@item.CourseId" />
+														<input type="hidden" name="parameterName2" value="test" />
+														<button onMouseOver="this.style.backgroundColor='#FFA500';this.style.color='#F0FFFF'" 
+													onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#000000'" type="submit">Enroll</button>
+													</form>
 												</div>
 											</div>
 										</div>

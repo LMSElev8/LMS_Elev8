@@ -61,13 +61,12 @@ namespace LMS_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UniqueId,UserId,CourseId,EnrollmentDate")] Enrollment enrollment)
         {
-            Console.WriteLine(enrollment.UniqueId);
-            Console.WriteLine(enrollment.UserId);
-            Console.WriteLine(enrollment.CourseId);
-            Console.WriteLine(enrollment.EnrollmentDate);
             if (ModelState.IsValid)
             {
                 _context.Add(enrollment);
+                var updatingCourse = await _context.Courses.FindAsync(enrollment.CourseId);
+                updatingCourse.EnrollmentCount +=1 ;
+                _context.Update(updatingCourse);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -164,6 +163,9 @@ namespace LMS_Project.Controllers
             if (enrollment != null)
             {
                 _context.Enrollments.Remove(enrollment);
+                var updatingCourse = await _context.Courses.FindAsync(enrollment.CourseId);
+                updatingCourse.EnrollmentCount -=1 ;
+                _context.Update(updatingCourse);
             }
             
             await _context.SaveChangesAsync();
