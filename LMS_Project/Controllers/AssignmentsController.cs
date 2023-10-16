@@ -82,7 +82,7 @@ namespace LMS_Project.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId", assignment.CourseId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Title", assignment.CourseId);
             return View(assignment);
         }
 
