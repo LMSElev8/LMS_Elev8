@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LMS_Project.Data;
 using LMS_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS_Project.Controllers
 {
-    public class CoursesController : Controller
+	[Authorize(Roles = "Admin,Instructor")]
+	public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -22,8 +24,9 @@ namespace LMS_Project.Controllers
             this._hostEnvironment = hostEnvironment;
         }
 
-        // GET: Courses
-        public async Task<IActionResult> Index()
+		// GET: Courses
+	
+		public async Task<IActionResult> Index()
         {
               return _context.Courses != null ? 
                           View(await _context.Courses.ToListAsync()) :

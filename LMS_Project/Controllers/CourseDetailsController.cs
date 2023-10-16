@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace LMS_Project.Controllers
-{
+{   
+
     public class CourseDetailsController : Controller
     {
         private readonly ILogger<HomeController> _logger;

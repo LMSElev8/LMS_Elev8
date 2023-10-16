@@ -1,4 +1,5 @@
 using LMS_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -19,7 +20,8 @@ namespace LMS_Project.Controllers
             return View();
         }
 
-        public IActionResult EnrolledCourses()
+		[Authorize(Roles = "User")]  
+		public IActionResult EnrolledCourses()
         {
             return View();
         }

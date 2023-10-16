@@ -76,19 +76,25 @@
 							<li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
 
 							<li class="add-mega-menu"><a asp-controller="CourseList" asp-action="Index">Courses</a></li>
-
+								@if (User.IsInRole("User")){
 							<li class="add-mega-menu"><a asp-controller="CourseList" asp-action="EnrolledCourses">Enrolled Courses</a></li>
-
+                                }
 
 							<li><a asp-controller="Home" asp-action="Index">About</a></li>
-
-							<li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
-								<ul class="sub-menu">
-									<li><a asp-controller="Courses" asp-action="Index">Courses Dashboard</a></li>
-									<li><a asp-controller="Assignments" asp-action="Index">Assignment Dashboard</a></li>
-									<li><a asp-controller="Home" asp-action="Index">Admin Dashboard</a></li>
-								</ul>
-							</li>
+								@if (User.IsInRole("Admin") || User.IsInRole("Instructor"))
+								{
+									<li class="nav-dashboard">
+										<a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
+										<ul class="sub-menu">
+											<li><a asp-controller="Courses" asp-action="Index">Courses Dashboard</a></li>
+											<li><a asp-controller="Assignments" asp-action="Index">Assignment Dashboard</a></li>
+											@if (User.IsInRole("Admin")){
+                                                <li><a asp-controller="Home" asp-action="Index">Admin Dashboard</a></li>
+                                            }
+										</ul>
+									</li>
+							}
+							
 						</ul>
 						<div style="margin-left: auto; margin-right: 0;">
 							<ul>

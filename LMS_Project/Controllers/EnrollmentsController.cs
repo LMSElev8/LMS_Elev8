@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LMS_Project.Data;
 using LMS_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS_Project.Controllers
 {
-    public class EnrollmentsController : Controller
+	[Authorize(Roles = "Admin,Instructor")]
+	public class EnrollmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
