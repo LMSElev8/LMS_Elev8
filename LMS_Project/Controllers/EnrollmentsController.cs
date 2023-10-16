@@ -49,8 +49,8 @@ namespace LMS_Project.Controllers
         // GET: Enrollments/Create
         public IActionResult Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserName", "UserName");
+            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Title");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
             return View();
         }
 
@@ -61,6 +61,10 @@ namespace LMS_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UniqueId,UserId,CourseId,EnrollmentDate")] Enrollment enrollment)
         {
+            Console.WriteLine(enrollment.UniqueId);
+            Console.WriteLine(enrollment.UserId);
+            Console.WriteLine(enrollment.CourseId);
+            Console.WriteLine(enrollment.EnrollmentDate);
             if (ModelState.IsValid)
             {
                 _context.Add(enrollment);
@@ -85,8 +89,8 @@ namespace LMS_Project.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId", enrollment.CourseId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", enrollment.UserId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Title", enrollment.CourseId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName", enrollment.UserId);
             return View(enrollment);
         }
 

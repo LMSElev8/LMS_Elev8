@@ -2,15 +2,18 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = null;
 }
 
-<h1>Index</h1>
+<div>
+    <p style="font-size: 30px; font-weight: 500; margin:25px; text-align: center;">
+        Enrollment Dashboard
+    </p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<button style="border-width: 2px; margin-top:10px; margin-bottom:30px; margin-left:20px; ">
+    <a asp-action="Create">Create Enrollment</a>
+</button>
+<table class="table" style="margin-left: 20px;">
     <thead>
         <tr>
             <th>
@@ -32,10 +35,10 @@
                 @Html.DisplayFor(modelItem => item.EnrollmentDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.User.Email )
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Course.CourseId)
+                @Html.DisplayFor(modelItem => item.Course.Title)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UniqueId">Edit</a> |
