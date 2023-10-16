@@ -1,4 +1,8 @@
-﻿<div class="page-content bg-white">
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+
+
+<div class="page-content bg-white">
     <!-- Main Slider -->
     <div class="rev-slider">
         <div id="rev_slider_486_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="news-gallery36" data-source="gallery" style="margin:0px auto;background-color:#ffffff;padding:0px;margin-top:0px;margin-bottom:0px;">
@@ -383,9 +387,18 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 heading-bx left">
-                        <h2 class="title-head">Popular <span>Courses</span></h2>
+                        <h2 class="title-head">Popular @User.Identity?.Name <span>Courses</span></h2>
                         <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
                     </div>
+                        <form method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Display Name</label>
+                                <input type="text" class="form-control" id="displayName" name="displayName"/>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-dark">Submit</button>
+                            </div>
+                        </form>
                 </div>
                 <div class="row">
                 <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">

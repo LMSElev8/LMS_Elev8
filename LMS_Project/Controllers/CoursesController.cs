@@ -14,9 +14,12 @@ namespace LMS_Project.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public CoursesController(ApplicationDbContext context)
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public CoursesController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: Courses
@@ -56,10 +59,22 @@ namespace LMS_Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseId,Title,Description,Category,EnrollmentCount,ImageUrl")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseId,Title,Description,Category,EnrollmentCount,ImageFile")] Course course)
         {
+            Console.WriteLine(ModelState.IsValid);
             if (ModelState.IsValid)
             {
+                //save image to wwwroot/image
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(course.ImageFile.FileName);
+                string extension = Path.GetExtension(course.ImageFile.FileName);
+                course.ImageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath+"/image/",fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await course.ImageFile.CopyToAsync(fileStream);
+                }
+
                 _context.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -88,8 +103,10 @@ namespace LMS_Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CourseId,Title,Description,Category,EnrollmentCount,ImageUrl")] Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("CourseId,Title,Description,Category,EnrollmentCount,ImageUrl,ImageFile")] Course course)
         {
+            Console.WriteLine(ModelState.IsValid);
+            Console.WriteLine(course.ImageFile?.FileName);
             if (id != course.CourseId)
             {
                 return NotFound();
@@ -99,6 +116,25 @@ namespace LMS_Project.Controllers
             {
                 try
                 {
+                    if(course.ImageFile != null){
+                        //delete image
+                        var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", course.ImageUrl);
+                        if(System.IO.File.Exists(imagePath)){
+                            System.IO.File.Delete(imagePath);
+                        }
+                        //save image to wwwroot/image
+                        string wwwRootPath = _hostEnvironment.WebRootPath;
+                        string fileName = Path.GetFileNameWithoutExtension(course.ImageFile.FileName);
+                        string extension = Path.GetExtension(course.ImageFile.FileName);
+                        course.ImageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        string path = Path.Combine(wwwRootPath+"/image/",fileName);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await course.ImageFile.CopyToAsync(fileStream);
+                        }
+                    }
+                    
+
                     _context.Update(course);
                     await _context.SaveChangesAsync();
                 }
@@ -148,6 +184,12 @@ namespace LMS_Project.Controllers
             var course = await _context.Courses.FindAsync(id);
             if (course != null)
             {
+                //delete image
+                var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", course.ImageUrl);
+                if(System.IO.File.Exists(imagePath)){
+                    System.IO.File.Delete(imagePath);
+                }
+
                 _context.Courses.Remove(course);
             }
             

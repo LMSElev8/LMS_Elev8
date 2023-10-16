@@ -4,13 +4,15 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1 style="text-align: center;">Edit Course</h1>
 
-<h4>Course</h4>
 <hr />
-<div class="row">
+<div class="row ">
     <div class="col-md-4">
-        <form asp-action="Edit">
+
+    </div>
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CourseId" />
             <div class="form-group">
@@ -25,7 +27,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <select asp-for="Category">
+                    <option value="IT & Software">IT & Software</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Business">Business</option>
+                    <option value="Design">Design</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Health & Fitness">Health & Fitness</option>
+                    <option value="Music">Music</option>
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,8 +45,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
+                <input asp-for="ImageUrl" class="form-control" readonly/>
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <img src="@("~/image/"+Model.ImageUrl)" asp-append-version="true" width="350px" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -45,8 +62,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="text-align:center; padding:10px; margin-bottom:5px">
+    <a style="border:3px solid;padding:10px" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
