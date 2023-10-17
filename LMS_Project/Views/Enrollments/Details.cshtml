@@ -4,33 +4,42 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 style="text-align: center;">Course Details</h1>
+<hr />
 
 <div>
-    <h4>Enrollment</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.EnrollmentDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-3">
             @Html.DisplayFor(model => model.EnrollmentDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+        
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.User)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.User.UserName)
         </dd>
-        <dt class = "col-sm-2">
+        <dd class = "col-sm-2"></dd>
+
+        <dt class = "col-sm-4"></dt>
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Course)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Course.CourseId)
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.Course.Title)
         </dd>
+        <dd class = "col-sm-2"></dd>
+              
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.UniqueId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div style="text-align:center; padding:10px; margin-bottom:5px">
+    <a style="border:3px solid;padding:10px" asp-action="Edit" asp-route-id="@Model?.UniqueId">Edit</a> 
+    <a style="border:3px solid;padding:10px" asp-action="Index">Back to List</a>
 </div>

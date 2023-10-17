@@ -1,3 +1,5 @@
+@model LMS_Project.Models.EnrollNotEnrollModel
+
 		<div class="page-content bg-white">
         <!-- inner page banner -->
         <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
@@ -29,9 +31,12 @@
                                 <ul>
                                     <li class="active"><a href="#">General</a></li>
                                     <li><a href="#">IT & Software</a></li>
-                                    <li><a href="#">Photography</a></li>
-                                    <li><a href="#">Programming Language</a></li>
                                     <li><a href="#">Technology</a></li>
+                                    <li><a href="#">Business</a></li>
+                                    <li><a href="#">Design</a></li>
+                                    <li><a href="#">Marketing</a></li>
+                                    <li><a href="#">Health & Fitness</a></li>
+                                    <li><a href="#">Music</a></li>
                                 </ul>
                             </div>
 							<div class="widget">
@@ -40,74 +45,61 @@
 						</div>
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="row">
-
-								<div class="col-md-6 col-lg-4 col-sm-6 m-b30">
-									<div class="cours-bx">
-										<div class="action-box">
-											<img src="https://media.istockphoto.com/id/1353769234/photo/training-and-skill-development-concept-with-icons-of-online-course-conference-seminar-webinar.jpg?s=612x612&w=0&k=20&c=2YJG1My6Lu1T1FnzIPbimRNORcSbSuz6A8zb7HKNpx4=" alt="">
-											
-										</div>
-										<div class="info-bx text-center">
-											<h5><a asp-controller="CourseDetails" asp-action="Index">Introduction EduChamp – LMS plugin</a></h5>
-											<span>Programming</span>
-										</div>
-										<div class="cours-more-info">
-											<div class="review">
-												<span style="font-size: 13px;">3 Enrollments</span>
+								@foreach (var item in Model.EnrollCourse) {
+									<div class="col-md-6 col-lg-4 col-sm-6 m-b30">
+										<div class="cours-bx">
+											<div class="action-box">
+												<img src="@("~/image/"+item.ImageUrl)" asp-append-version="true" />
 											</div>
-											<div style="margin:auto">
-												<button 
-                                                onMouseOver="this.style.backgroundColor='#FFA500';this.style.color='#F0FFFF'" 
-                                                onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#000000'">Enroll</button>
+											<div class="info-bx text-center">
+												<h5><a asp-controller="CourseDetails" asp-action="Index" asp-route-id="@item.CourseId">@item.Title</a></h5>
+												<span>@item.Category</span>
 											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6 col-lg-4 col-sm-6 m-b30">
-									<div class="cours-bx">
-										<div class="action-box">
-											<img src="https://media.istockphoto.com/id/1353769234/photo/training-and-skill-development-concept-with-icons-of-online-course-conference-seminar-webinar.jpg?s=612x612&w=0&k=20&c=2YJG1My6Lu1T1FnzIPbimRNORcSbSuz6A8zb7HKNpx4=" alt="">
-											
-										</div>
-										<div class="info-bx text-center">
-											<h5><a asp-controller="CourseDetails" asp-action="Index">Introduction EduChamp – LMS plugin</a></h5>
-											<span>Programming</span>
-										</div>
-										<div class="cours-more-info">
-											<div class="review">
-												<span style="font-size: 13px;">3 Enrollments</span>
-											</div>
-											<div style="margin:auto">
-												<button 
-                                                onMouseOver="this.style.backgroundColor='#FFA500';this.style.color='#F0FFFF'" 
-                                                onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#000000'">Enroll</button>
+											<div class="cours-more-info">
+												<div class="review">
+													<span style="font-size: 13px;">@item.EnrollmentCount</span>
+													<span style="font-size: 13px;">Enrollments</span>
+												</div>
+												<div style="margin:auto">
+													<form action="@Url.Action("Index", "CourseList")" method="post">
+														<input type="hidden" name="parameterName" value="@item.CourseId" />
+														<input type="hidden" name="parameterName2" value="test2" />
+														<button style="background-color: #32CD32; color: #F0FFFF"type="submit">Enrolled</button>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>                                
+								}
 								
-								<div class="col-md-6 col-lg-4 col-sm-6 m-b30">
-									<div class="cours-bx">
-										<div class="action-box">
-											<img src="https://media.istockphoto.com/id/1353769234/photo/training-and-skill-development-concept-with-icons-of-online-course-conference-seminar-webinar.jpg?s=612x612&w=0&k=20&c=2YJG1My6Lu1T1FnzIPbimRNORcSbSuz6A8zb7HKNpx4=" alt="">
-											
-										</div>
-										<div class="info-bx text-center">
-											<h5><a asp-controller="CourseDetails" asp-action="Index">Introduction EduChamp – LMS plugin</a></h5>
-											<span>Programming</span>
-										</div>
-										<div class="cours-more-info">
-											<div class="review">
-												<span style="font-size: 13px;">3 Enrollments</span>
+								@foreach (var item in Model.NotEnrollCourse) {
+									<div class="col-md-6 col-lg-4 col-sm-6 m-b30">
+										<div class="cours-bx">
+											<div class="action-box">
+												<img src="@("~/image/"+item.ImageUrl)" asp-append-version="true" />
 											</div>
-											<div style="margin:auto">
-												<button 
-                                                style="background-color: #32CD32; color: #F0FFFF">Enrolled</button>
+											<div class="info-bx text-center">
+												<h5><a asp-controller="CourseDetails" asp-action="Index" asp-route-id="@item.CourseId">@item.Title</a></h5>
+												<span>@item.Category</span>
+											</div>
+											<div class="cours-more-info">
+												<div class="review">
+													<span style="font-size: 13px;">@item.EnrollmentCount</span>
+													<span style="font-size: 13px;">Enrollments</span>
+												</div>
+												<div style="margin:auto">
+													
+													<form action="@Url.Action("Index", "CourseList")" method="post">
+														<input type="hidden" name="parameterName" value="@item.CourseId" />
+														<input type="hidden" name="parameterName2" value="test" />
+														<button onMouseOver="this.style.backgroundColor='#FFA500';this.style.color='#F0FFFF'" 
+													onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#000000'" type="submit">Enroll</button>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+								}
 							</div>
 						</div>
 					</div>

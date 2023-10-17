@@ -4,22 +4,22 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1 style="text-align: center;">Edit Enrollment</h1>
 
-<h4>Enrollment</h4>
 <hr />
 <div class="row">
+    <div class="col-md-4"></div>
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="UniqueId" />
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
+                <label asp-for="UserId" class="control-label"> User Name</label>
                 <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
+                <label asp-for="CourseId" class="control-label">Course Name</label>
                 <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
                 <span asp-validation-for="CourseId" class="text-danger"></span>
             </div>
@@ -35,10 +35,9 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="text-align:center; padding:10px; margin-bottom:5px">
+    <a style="border:3px solid;padding:10px" asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
