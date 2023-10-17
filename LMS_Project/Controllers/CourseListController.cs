@@ -55,7 +55,7 @@ namespace LMS_Project.Controllers
                           Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
         }
 
-        [Authorize(Roles = "User")] 
+        
         [HttpPost]
         public async Task<IActionResult> Index(int parameterName, string parameterName2)
         {
@@ -122,6 +122,7 @@ namespace LMS_Project.Controllers
                           Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
         }
 
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> EnrolledCourses()
         {
             var user = await _userManager.GetUserAsync(User);
