@@ -20,6 +20,18 @@ namespace LMS_Project.Data
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
 
+         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // User ile Enrollments arasındaki ilişkiyi tanımlayın
+            modelBuilder.Entity<AppUser>()
+                .HasMany(u => u.Enrollments)
+                .WithOne(e => e.User)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
+
     }  
 
    
