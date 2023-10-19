@@ -40,7 +40,6 @@ namespace LMS_Project.Controllers
                  CourseId = course.CourseId, Description = course.Description, EnrollmentCount = course.EnrollmentCount,
                   Enrollments = course.Enrollments, ImageFile = course.ImageFile, ImageUrl = course.ImageUrl});
 
-                Console.WriteLine(course.Title);
             }
             var uniqueIds = new HashSet<int>(EnrolledCourses.Select(item => item.CourseId));
             courses.RemoveAll(item => uniqueIds.Contains(item.CourseId));
@@ -59,8 +58,6 @@ namespace LMS_Project.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(int parameterName, string parameterName2)
         {
-            Console.WriteLine("parameterName2");
-            Console.WriteLine(parameterName2);
             var user = await _userManager.GetUserAsync(User);
 
             if(parameterName2=="test"){
@@ -100,14 +97,12 @@ namespace LMS_Project.Controllers
             .ToList();
             foreach (var item in Enrollments)
             {
-                Console.WriteLine("enreollmenst");
                 var course = await _context.Courses.FindAsync(item.CourseId);
 
                 EnrolledCourses.Add(new Course {Title = course.Title, Assignments=course.Assignments, Category = course.Category,
                  CourseId = course.CourseId, Description = course.Description, EnrollmentCount = course.EnrollmentCount,
                   Enrollments = course.Enrollments, ImageFile = course.ImageFile, ImageUrl = course.ImageUrl});
 
-                Console.WriteLine(course.Title);
             }
             var uniqueIds = new HashSet<int>(EnrolledCourses.Select(item => item.CourseId));
             courses.RemoveAll(item => uniqueIds.Contains(item.CourseId));

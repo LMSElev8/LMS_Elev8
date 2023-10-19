@@ -35,10 +35,7 @@ namespace LMS_Project.Controllers
             var Enrollment = _context.Enrollments
             .Where(enrol => enrol.UserId == user.Id && enrol.CourseId == course.CourseId )
             .ToList();
-            Console.WriteLine("process lenght");
-            if(Enrollment[0].ProcessTracks == null){
-                Console.WriteLine("null");
-            }
+
             var EnrollmentCount = _context.ProcessTrack
             .Where(enrol => enrol.EnrollmentId == Enrollment[0].UniqueId )
             .ToList();
@@ -50,8 +47,6 @@ namespace LMS_Project.Controllers
             if(EnrollmentCount != null){
                 enrollnum = EnrollmentCount.Count;
             }
-            Console.WriteLine("enrollnum");
-            Console.WriteLine(enrollnum);
 
 
             /*if(Enrollment[0].StringList != null){
@@ -66,17 +61,8 @@ namespace LMS_Project.Controllers
             .Where(ass => ass.CourseId == id)
             .ToList();
 
-            Console.WriteLine(EnrollmentCount.Count);
-            Console.WriteLine("EnrollmentCount.Count");
-            Console.WriteLine(course.Assignments.Count);
-            Console.WriteLine("course.Assignments.Count");
-            Console.WriteLine("----------------------------");
-
             float ratio = (float)enrollnum / Assignments.Count*100;
             int intRatio = (int)ratio;
-            Console.WriteLine(intRatio);
-            Console.WriteLine("intRatio");
-            Console.WriteLine(ratio);
 
             var viewModel = new CourseAssignmentModel
             {
@@ -96,9 +82,6 @@ namespace LMS_Project.Controllers
             var Enrollment = _context.Enrollments
             .Where(enrol => enrol.UserId == user.Id && enrol.CourseId == courseId )
             .ToList();
-
-            Console.WriteLine("kayitt:");
-            Console.WriteLine(Enrollment[0].UniqueId);
             
             ProcessTrack processTrack = new ProcessTrack{
                 AssignmentString = assId,
@@ -110,9 +93,6 @@ namespace LMS_Project.Controllers
             var EnrollmentCount = _context.ProcessTrack
             .Where(enrol => enrol.EnrollmentId == Enrollment[0].UniqueId )
             .ToList();
-
-            Console.WriteLine(assId);
-            Console.WriteLine("name");
             
             var course = _context.Courses.Find(courseId);
             Console.WriteLine(course.Title);
@@ -121,18 +101,8 @@ namespace LMS_Project.Controllers
             .Where(ass => ass.CourseId == courseId)
             .ToList();
 
-            Console.WriteLine(EnrollmentCount.Count);
-            Console.WriteLine("EnrollmentCount.Count");
-            Console.WriteLine(course.Assignments.Count);
-            Console.WriteLine("course.Assignments.Count");
-            Console.WriteLine("----------------------------");
-
-
             float ratio = (float)EnrollmentCount.Count / course.Assignments.Count*100;
             int intRatio = (int)ratio;
-            Console.WriteLine(intRatio);
-            Console.WriteLine("intRatio");
-            Console.WriteLine(ratio);
 
             var viewModel = new CourseAssignmentModel
             {
