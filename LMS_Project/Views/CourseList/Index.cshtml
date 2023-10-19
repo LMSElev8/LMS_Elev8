@@ -79,7 +79,8 @@
 												<img src="@("~/image/"+item.ImageUrl)" asp-append-version="true" />
 											</div>
 											<div class="info-bx text-center">
-												<h5><a asp-controller="CourseDetails" asp-action="Index" asp-route-id="@item.CourseId">@item.Title</a></h5>
+												<h5><a style="opacity: 0.5; cursor: not-allowed; pointer-events: none;" asp-controller="CourseDetails" asp-action="Index" asp-route-id="@item.CourseId">@item.Title</a></h5>
+												
 												<span>@item.Category</span>
 											</div>
 											<div class="cours-more-info">
