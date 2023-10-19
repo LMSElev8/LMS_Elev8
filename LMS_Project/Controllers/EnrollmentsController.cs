@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LMS_Project.Data;
 using LMS_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS_Project.Controllers
 {
-    public class EnrollmentsController : Controller
+	[Authorize(Roles = "Admin,Instructor")]
+	public class EnrollmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -49,8 +51,8 @@ namespace LMS_Project.Controllers
         // GET: Enrollments/Create
         public IActionResult Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserName", "UserName");
+            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Title");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
             return View();
         }
 
@@ -64,6 +66,9 @@ namespace LMS_Project.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(enrollment);
+                var updatingCourse = await _context.Courses.FindAsync(enrollment.CourseId);
+                updatingCourse.EnrollmentCount +=1 ;
+                _context.Update(updatingCourse);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -85,8 +90,8 @@ namespace LMS_Project.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId", enrollment.CourseId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", enrollment.UserId);
+            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Title", enrollment.CourseId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName", enrollment.UserId);
             return View(enrollment);
         }
 
@@ -160,6 +165,9 @@ namespace LMS_Project.Controllers
             if (enrollment != null)
             {
                 _context.Enrollments.Remove(enrollment);
+                var updatingCourse = await _context.Courses.FindAsync(enrollment.CourseId);
+                updatingCourse.EnrollmentCount -=1 ;
+                _context.Update(updatingCourse);
             }
             
             await _context.SaveChangesAsync();

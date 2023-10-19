@@ -1,4 +1,6 @@
-    <div class="page-content bg-white">
+@model LMS_Project.Models.CourseAssignmentModel
+    
+	<div class="page-content bg-white">
         <!-- inner page banner -->
         <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner2.jpg);">
             <div class="container">
@@ -27,11 +29,11 @@
 							<div class="course-detail-bx">
 								<div class="cours-more-info">
 									<div class="review">
-										<span style="font-size: 13px;">3 Enrollments</span>
+										<span style="font-size: 13px;">@Model.Course.EnrollmentCount Enrollments</span>
 									</div>
 									<div class="price categories">
 										<span>Categories</span>
-										<h5 class="text-primary">Frontend</h5>
+										<h5 class="text-primary">@Model.Course.Category</h5>
 									</div>
 								</div>
 								<div class="course-info-list scroll-page">
@@ -46,14 +48,14 @@
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="courses-post">
 								<div class="ttr-post-media media-effect">
-									<a href="#"><img src="https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png" alt=""></a>
+									<img src="@("~/image/"+Model.Course.ImageUrl)" asp-append-version="true" />
 								</div>
 								<div class="ttr-post-info">
 									<div class="ttr-post-title ">
-										<h2 class="post-title">Nvidia and UE4 Technologies Practice</h2>
+										<h2 class="post-title">@Model.Course.Title</h2>
 									</div>
 									<div class="ttr-post-text">
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+										<p>@Model.Course.Description</p>
 									</div>
 								</div>
 							</div>
@@ -62,51 +64,41 @@
 								<div class="row">
 									<div class="col-md-12 col-lg-4">
 										<ul class="course-features">
-											<li><i class="ti-book"></i> <span class="label">Assignments</span> <span class="value">3</span></li>
+											<li><i class="ti-book"></i> <span class="label">Assignments</span> <span class="value">@Model.Assignments.Count</span></li>
 										</ul>
+									<ul class="course-features">
+										<li><i class="ti-book"></i> <span class="label">Instructor</span> <span class="value">@Model.Course.Instructor</span></li>
+									</ul>
 									</div>
 									<div class="col-md-12 col-lg-8">
 										<h5 class="m-b5">Course Description</h5>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+										<p>@Model.Course.Description</p>
 										<h5 class="m-b5">Certification</h5>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-										<h5 class="m-b5">Learning Outcomes</h5>
+										<p>@Model.Course.Description</p>
 									</div>
 								</div>
 							</div>
 							<div class="m-b30" id="curriculum">
 								<h4>Assignments</h4>
 								<ul class="curriculum-list">
-										<li>
-											<h5>Assignment 1</h5>
-											<ul>
-												<li>
-													<div class="curriculum-list-box">
-														<span>Lesson 1.</span> Introduction to UI Design
-													</div>
-												</li>
-											</ul>
-										</li>
-										<li>
-											<h5>Assignment 2</h5>
-											<ul>
-												<li>
-													<div class="curriculum-list-box">
-														<span>Lesson 1.</span> Prototyping and Design
-													</div>
-												</li>
-											</ul>
-										</li>
-										<li>
-											<h5>Assignment 3</h5>
-											<ul>
-												<li>
-													<div class="curriculum-list-box">
-														<span>Part 1.</span> Final Test
-													</div>
-												</li>
-											</ul>
-										</li>
+										@foreach(var ass in Model.Assignments){
+											<li>
+												<h5>@ass.Title</h5>
+												<ul>
+													<li>
+														<div class="curriculum-list-box">
+															<span>@ass.Description</span> 
+														</div>
+													</li>
+													<li>
+														<div style="color: #2F4F4F; font-weight: 500;">
+															<span>Date Time: </span><span>@ass.DueDate</span> 
+														</div>
+													</li>
+												</ul>
+											</li>
+										}
+
 									</ul>
 							</div>
                             

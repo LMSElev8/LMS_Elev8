@@ -23,6 +23,8 @@ builder.Services.AddDefaultIdentity<AppUser>(
     )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+    
+builder.Services.AddControllersWithViews().AddControllersAsServices();
 
 var app = builder.Build();
 

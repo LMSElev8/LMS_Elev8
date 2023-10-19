@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LMS_Project.Data
 {
+    
     public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

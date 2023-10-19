@@ -39,9 +39,13 @@
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EnrollmentCount" class="control-label"></label>
+                <label asp-for="EnrollmentCount" class="control-label" ></label>
                 <input asp-for="EnrollmentCount" class="form-control" />
                 <span asp-validation-for="EnrollmentCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instructor" class="control-label">Instructor</label>
+                <select asp-for="Instructor" class="form-control" asp-items="ViewBag.Instructor"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>

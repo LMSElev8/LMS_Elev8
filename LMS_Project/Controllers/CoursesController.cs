@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LMS_Project.Data;
 using LMS_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS_Project.Controllers
 {
-    public class CoursesController : Controller
+	[Authorize(Roles = "Admin,Instructor")]
+	public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -22,8 +24,9 @@ namespace LMS_Project.Controllers
             this._hostEnvironment = hostEnvironment;
         }
 
-        // GET: Courses
-        public async Task<IActionResult> Index()
+		// GET: Courses
+	
+		public async Task<IActionResult> Index()
         {
               return _context.Courses != null ? 
                           View(await _context.Courses.ToListAsync()) :
@@ -51,6 +54,9 @@ namespace LMS_Project.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
+
+            ViewData["Instructor"] = new SelectList(_context.Users.Where(u => _context.UserRoles.Any(ur => ur.UserId == u.Id && ur.RoleId == "51cf6626-6626-40b8-a049-9ba679f56473")).Select(a => new AppUser() {FirstName = a.FirstName+" "+a.LastName, Id = a.Id }), "Id", "FirstName");
+
             return View();
         }
 
@@ -59,7 +65,7 @@ namespace LMS_Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseId,Title,Description,Category,EnrollmentCount,ImageFile")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseId,Title,Description,Category,EnrollmentCount,Instructor,ImageFile")] Course course)
         {
             Console.WriteLine(ModelState.IsValid);
             if (ModelState.IsValid)
@@ -95,7 +101,9 @@ namespace LMS_Project.Controllers
             {
                 return NotFound();
             }
-            return View(course);
+			ViewData["Instructor"] = new SelectList(_context.Users.Where(u => _context.UserRoles.Any(ur => ur.UserId == u.Id && ur.RoleId == "51cf6626-6626-40b8-a049-9ba679f56473")).Select(a => new AppUser() { FirstName = a.FirstName + " " + a.LastName, Id = a.Id }), "Id", "FirstName");
+
+			return View(course);
         }
 
         // POST: Courses/Edit/5
@@ -103,7 +111,7 @@ namespace LMS_Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CourseId,Title,Description,Category,EnrollmentCount,ImageUrl,ImageFile")] Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("CourseId,Title,Description,Category,EnrollmentCount,Instructor,ImageUrl,ImageFile")] Course course)
         {
             Console.WriteLine(ModelState.IsValid);
             Console.WriteLine(course.ImageFile?.FileName);
