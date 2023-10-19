@@ -3,20 +3,20 @@
 @inject UserManager<AppUser> userManager
 
 @{
-    ViewData["Title"] = "User List";
+    ViewData["Title"] = "Users List";
 }
 
 <div class="container mt-5">
-    <h2 class="text-center">User List</h2>
+    <h2 style="color: gray;" class="text-center ">Users List</h2>
     <div class="text-right mb-2">
-        <a asp-controller="Users" asp-action="Create" class="btn btn-primary">Create</a>
+        <a asp-controller="Users" asp-action="Create" class="btn btn-primary">Create New User</a>
     </div>
     <table class="table table-sm table-bordered" >
         <thead class="bg-dark text-white " >
             <tr>
-                <th class="text-white" >Email</th>
-                <th class="text-white">First Name</th>
+                <th class="text-white" >First Name</th>
                 <th class="text-white">Last Name</th>
+                <th class="text-white">Email</th>
                 <th class="text-white">Roles</th>
                 <th class="text-white">Actions</th>
             </tr>
@@ -26,9 +26,9 @@
             {
                 var roles = await userManager.GetRolesAsync(user);
                 <tr>
-                    <td>@user.Email</td>
                     <td>@user.FirstName</td>
                     <td>@user.LastName</td>
+                    <td>@user.Email</td>
                     <td>
                         @foreach (var role in roles)
                         {
