@@ -1,0 +1,231 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+    string fullName = "Test"; // Default value in case user is null
+    if (user != null)
+    {
+        fullName = $"{user.FirstName} {user.LastName}";
+    }
+}
+
+<div class="page-content bg-white">
+			<!-- inner page banner -->
+			<div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+				<div class="container">
+					<div class="page-banner-entry">
+						<h1 class="text-white">Profile</h1>
+					</div>
+				</div>
+			</div>
+			<!-- Breadcrumb row -->
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a href="#">Home</a></li>
+						<li>Profile</li>
+					</ul>
+				</div>
+			</div>
+			<!-- Breadcrumb row END -->
+			<!-- inner page banner END -->
+			<div class="content-block">
+				<!-- About Us -->
+				<div class="section-area section-sp1">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+								<div class="profile-bx text-center">
+									<div class="profile-info" style="margin-top:20px">
+										<h4>@fullName</h4>
+										<span>@user.Email</span>
+									</div>
+									<div class="profile-tabnav">
+										<ul class="nav nav-tabs">
+											<li class="nav-item">
+												<a class="nav-link active" data-toggle="tab" href="#quiz-results"><i
+														class="ti-bookmark-alt"></i>Profile Info </a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" data-toggle="tab" href="#edit-profile"><i
+														class="ti-pencil-alt"></i>Edit Profile</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" data-toggle="tab" href="#change-password"><i
+														class="ti-lock"></i>Change Password</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" data-toggle="tab" href="#delete-account"><i
+														class="ti-trash"></i>Delete Account</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-9 col-md-8 col-sm-12 m-b30">
+								<div class="profile-content-bx">
+									<div class="tab-content">
+										<div class="tab-pane active" id="quiz-results">
+											<div class="profile-head">
+												<h3>Profile Info</h3>
+											</div>
+											<div class="courses-filter">
+												<div class="row">
+													<div class="col-md-12 col-lg-12">
+														<ul class="course-features">
+															<li><i class="ti-user"></i> <span class="label">First
+																	Name</span> <span class="value">@user.FirstName</span></li>
+															<li><i class="ti-user"></i> <span class="label">Last
+																	Name</span> <span class="value">@user.LastName</span></li>
+															<li><i class="ti-help-alt"></i> <span class="label">E-mail
+																	Address</span> <span
+																	class="value">@user.Email</span></li>
+															<li><i class="ti-book"></i> <span
+																	class="label">Lectures</span> <span
+																	class="value">8</span></li>
+															<li><i class="ti-time"></i> <span
+																	class="label">Progress</span> <span class="value">%60
+																	</span></li>
+															<li><i class="ti-stats-up"></i> <span class="label">Skill
+																	level</span> <span class="value">Beginner</span>
+															</li>
+															<li><i class="ti-smallcap"></i> <span
+																	class="label">Language</span> <span
+																	class="value">English</span></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="edit-profile">
+											<div class="profile-head">
+												<h3>Edit Profile</h3>
+											</div>
+											<form class="edit-profile" method="post" asp-action="EditProfile">
+												@Html.AntiForgeryToken()
+												<div class="">
+													<div class="form-group row">
+														<div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+															<h3>1. Personal Details</h3>
+														</div>
+													</div>
+													<div class="form-group row">
+														<label
+															class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">First
+															Name</label>
+														<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+															<input class="form-control" name="FirstName" type="text" value="@user.FirstName">
+														</div>
+													</div>
+													<div class="form-group row">
+														<label
+															class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Last
+															Name</label>
+														<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+															<input class="form-control" name="LastName" type="text" value="@user.LastName">
+														</div>
+													</div>
+													<div class="form-group row">
+														<label
+															class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">E-mail Address</label>
+														<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+															<input class="form-control" name="Email" type="email" value="@user.Email">
+														</div>
+													</div>
+													
+
+													<div class="seperator"></div>
+
+												</div>
+												<div class="">
+													<div class="">
+														<div class="row">
+															<div class="col-12 col-sm-3 col-md-3 col-lg-2">
+															</div>
+															<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+																<button type="submit" class="btn">Save changes</button>
+																<button type="reset"
+																	class="btn-secondry">Cancel</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="tab-pane" id="change-password">
+											<div class="profile-head">
+												<h3>Change Password</h3>
+											</div>
+											<form class="edit-profile" method="post" asp-action="ChangePassword">
+												@Html.AntiForgeryToken()
+												<div class="">
+													<div class="form-group row">
+														<div class="col-12 col-sm-8 col-md-8 col-lg-9 ml-auto">
+															<h3>Password</h3>
+														</div>
+													</div>
+													<div class="form-group row">
+														<label
+															class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current
+															Password</label>
+														<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+															<input class="form-control" name="current" type="password" value="">
+														</div>
+													</div>
+													<div class="form-group row">
+														<label
+															class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New
+															Password</label>
+														<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+															<input class="form-control" name="new" type="password" value="">
+															@* <span asp-validation-for="Input.Password" class="text-danger"></span> *@
+														</div>
+													</div>
+													<div class="form-group row">
+														<label
+															class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re
+															Type New Password</label>
+														<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+															<input class="form-control" name="new-again" type="password" value="">
+															@* <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span> *@
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-12 col-sm-4 col-md-4 col-lg-3">
+													</div>
+													<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+														<button type="submit" class="btn">Save changes</button>
+														<button type="reset" class="btn-secondry">Cancel</button>
+													</div>
+												</div>
+
+											</form>
+										</div>
+										<div class="tab-pane" id="delete-account">
+											<div class="profile-head">
+												<h3>Are you sure?</h3>
+											</div>
+											<div style="margin: 50px; display: flex; justify-content: center; text-align: center;">
+												<h5>After this process your account will be deleted and you will not be able to reach to courses with the same account again.</h4>
+											</div>
+											<div style="margin: 50px; display: flex; justify-content: center; text-align: center;">
+												<form  method="post" asp-action="DeleteAccount">
+													@Html.AntiForgeryToken()
+													<button type="submit" class="btn-danger">Yes, Delete My Account</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- contact area END -->
+		</div>

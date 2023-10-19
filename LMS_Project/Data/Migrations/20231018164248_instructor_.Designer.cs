@@ -4,6 +4,7 @@ using LMS_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231018164248_instructor_")]
+    partial class instructor_
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,28 +191,6 @@ namespace LMS_Project.Data.Migrations
                     b.ToTable("Enrollments");
                 });
 
-            modelBuilder.Entity("LMS_Project.Models.ProcessTrack", b =>
-                {
-                    b.Property<int>("UniqueId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UniqueId"));
-
-                    b.Property<string>("AssignmentString")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EnrollmentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UniqueId");
-
-                    b.HasIndex("EnrollmentId");
-
-                    b.ToTable("ProcessTrack");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -373,17 +354,6 @@ namespace LMS_Project.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LMS_Project.Models.ProcessTrack", b =>
-                {
-                    b.HasOne("LMS_Project.Models.Enrollment", "Enrollment")
-                        .WithMany("ProcessTracks")
-                        .HasForeignKey("EnrollmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Enrollment");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -440,11 +410,6 @@ namespace LMS_Project.Data.Migrations
                     b.Navigation("Assignments");
 
                     b.Navigation("Enrollments");
-                });
-
-            modelBuilder.Entity("LMS_Project.Models.Enrollment", b =>
-                {
-                    b.Navigation("ProcessTracks");
                 });
 #pragma warning restore 612, 618
         }

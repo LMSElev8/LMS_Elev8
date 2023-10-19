@@ -22,7 +22,7 @@ namespace LMS_Project.Models
 
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
-
+        public string Instructor { get; set; }
         public List<Assignment>? Assignments { get; set; }
         public List<Enrollment>? Enrollments { get; set; }
 
