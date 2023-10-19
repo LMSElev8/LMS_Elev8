@@ -198,6 +198,14 @@ namespace LMS_Project.Controllers
                     System.IO.File.Delete(imagePath);
                 }
 
+                var Enrolls = _context.Enrollments.Where(enn => enn.CourseId == course.CourseId)
+                .ToList();
+
+                foreach (var item in Enrolls)
+                {
+                    _context.Enrollments.Remove(item);
+                }
+
                 _context.Courses.Remove(course);
             }
             
