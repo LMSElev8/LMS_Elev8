@@ -16,8 +16,12 @@ namespace LMS_Project.Models
         [ForeignKey("Course")]
         public int? CourseId { get; set; } // Foreign key
         public DateTime EnrollmentDate { get; set; }
+
+        public List<ProcessTrack>? ProcessTracks { get; set; }
+
         public AppUser? User { get; set; } // Navigation property
         
         public Course? Course { get; set; } // Navigation property
+
     }
 }
