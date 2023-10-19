@@ -1,0 +1,50 @@
+@model IEnumerable<AppUser>
+
+@inject UserManager<AppUser> userManager
+
+@{
+    ViewData["Title"] = "User List";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">User List</h2>
+    <div class="text-right mb-2">
+        <a asp-controller="Users" asp-action="Create" class="btn btn-primary">Create</a>
+    </div>
+    <table class="table table-sm table-bordered" >
+        <thead class="bg-dark text-white " >
+            <tr>
+                <th class="text-white" >Email</th>
+                <th class="text-white">First Name</th>
+                <th class="text-white">Last Name</th>
+                <th class="text-white">Roles</th>
+                <th class="text-white">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                var roles = await userManager.GetRolesAsync(user);
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>
+                        @foreach (var role in roles)
+                        {
+                            @role <br />
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-info">Edit</a>
+                        <form asp-action="Delete" method="post" onsubmit="return confirm('Are you sure you want to delete this user?')" style="display: inline-block;">
+                            <input type="hidden" value="@user.Id" name="Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    
