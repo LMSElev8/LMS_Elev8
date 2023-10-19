@@ -80,24 +80,92 @@
 							</div>
 							<div class="m-b30" id="curriculum">
 								<h4>Assignments</h4>
+								  <div class="progress">
+									<div class="progress-bar" role="progressbar" aria-valuenow="@Model.ProgressRatio" aria-valuemin="0" aria-valuemax="100" style="width:@Model.ProgressRatio%">
+									</div>
+								</div>
 								<ul class="curriculum-list">
-										@foreach(var ass in Model.Assignments){
+										@for(int i = 0; i < Model.Assignments.Count; i++){
+											if(Model.EnrollmentCount == null){
 											<li>
-												<h5>@ass.Title</h5>
+												<h5>@Model.Assignments[i].Title</h5>
 												<ul>
 													<li>
 														<div class="curriculum-list-box">
-															<span>@ass.Description</span> 
+															<span>@Model.Assignments[i].Description</span> 
 														</div>
 													</li>
 													<li>
 														<div style="color: #2F4F4F; font-weight: 500;">
-															<span>Date Time: </span><span>@ass.DueDate</span> 
+															<span>Date Time: </span><span>@Model.Assignments[i].DueDate</span> 
 														</div>
+														<button onMouseOver="this.style.backgroundColor='#FFA500';this.style.color='#F0FFFF'" 
+														onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#000000'">null</button>
 													</li>
 												</ul>
 											</li>
+											}
+											else if(i<Model.EnrollmentCount){
+											<li>
+												<h5>@Model.Assignments[i].Title</h5>
+												<ul>
+													<li>
+														<div class="curriculum-list-box">
+															<span>@Model.Assignments[i].Description</span> 
+														</div>
+													</li>
+													<li>
+														<div style="color: #2F4F4F; font-weight: 500;">
+															<span>Date Time: </span><span>@Model.Assignments[i].DueDate</span> 
+														</div>
+														<button style="background-color:#90EE90" disabled>Completed</button>
+													</li>
+												</ul>
+											</li>
+											}
+											else if(Model.EnrollmentCount==i){
+												<li>
+												<h5>@Model.Assignments[i].Title</h5>
+												<ul>
+													<li>
+														<div class="curriculum-list-box">
+															<span>@Model.Assignments[i].Description</span> 
+														</div>
+													</li>
+													<li>
+														<div style="color: #2F4F4F; font-weight: 500;">
+															<span>Date Time: </span><span>@Model.Assignments[i].DueDate</span> 
+														</div>
+														<form action="@Url.Action("Index", "CourseDetails")" method="post">
+														<input type="hidden" name="courseId" value="@Model.Assignments[i].CourseId" />
+														<input type="hidden" name="assId" value="@Model.Assignments[i].UniqueId" />
+														<button onMouseOver="this.style.backgroundColor='#FFA500';this.style.color='#F0FFFF'" 
+														onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#000000'" type="submit">Confirm</button>
+														</form>
+													</li>
+												</ul>
+											</li>
+											}else{
+												<li>
+												<h5>@Model.Assignments[i].Title</h5>
+												<ul>
+													<li>
+														<div class="curriculum-list-box">
+															<span>@Model.Assignments[i].Description</span> 
+														</div>
+													</li>
+													<li>
+														<div style="color: #2F4F4F; font-weight: 500;">
+															<span>Date Time: </span><span>@Model.Assignments[i].DueDate</span> 
+														</div>
+														<button disabled>Confirm</button>
+													</li>
+												</ul>
+											</li>
+											}
+											
 										}
+										
 
 									</ul>
 							</div>

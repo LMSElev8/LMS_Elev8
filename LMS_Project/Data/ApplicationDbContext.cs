@@ -21,7 +21,7 @@ namespace LMS_Project.Data
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
 
-         
+        public DbSet<ProcessTrack> ProcessTrack { get; set; }
 
 
     }  
