@@ -236,17 +236,11 @@ namespace LMS_Project.Controllers
                     _context.Enrollments.Remove(enrollment);
                 }
 
-                
-                var assignments = _context.Assignments
-                    .Where(a => a.Course != null && a.Course.Enrollments != null && a.Course.Enrollments.Any(e => e.UserId == id))
-                    .ToList();
-                foreach (var assignment in assignments)
-                {
-                    _context.Assignments.Remove(assignment);
-                }
-
-                
                 await _userManager.DeleteAsync(user);
+                
+                
+
+                    
             }
 
             return RedirectToAction("Index");
