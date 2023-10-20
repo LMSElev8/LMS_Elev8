@@ -59,7 +59,7 @@ namespace LMS_Project.Controllers
             {
                 var courses = _context.Courses.ToList();
                 ViewData["CourseId"] = new SelectList(courses, "CourseId", "Title");
-            return View();
+                return View();
             }
             else
             {
