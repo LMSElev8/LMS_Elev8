@@ -42,7 +42,7 @@ namespace LMS_Project.Controllers
             {
                 new SelectListItem { Value = "User", Text = "User" },
                 new SelectListItem { Value = "Instructor", Text = "Instructor" }
-                // Diğer rolleri burada ekleyebilirsiniz
+                
             };
 
             ViewBag.RoleList = new SelectList(roles, "Value", "Text");
@@ -85,7 +85,7 @@ namespace LMS_Project.Controllers
             {
                 new SelectListItem { Value = "User", Text = "User" },
                 new SelectListItem { Value = "Instructor", Text = "Instructor" }
-                // Diğer rolleri burada ekleyebilirsiniz
+               
             };
 
             ViewBag.RoleList = new SelectList(roles, "Value", "Text");
@@ -107,18 +107,18 @@ namespace LMS_Project.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Kullanıcının mevcut rollerini alın
+            
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            // Tüm rolleri çekin
+            
             var allRoles = new List<SelectListItem>
             {
                 new SelectListItem { Value = "User", Text = "User" },
                 new SelectListItem { Value = "Instructor", Text = "Instructor" },
-                // Diğer rolleri burada ekleyin
+               
             };
 
-            // Kullanıcının rollerini seçili yapın
+           
             foreach (var role in allRoles)
             {
                 if (userRoles.Contains(role.Value))
@@ -155,12 +155,12 @@ namespace LMS_Project.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index"); // Id null ise, Index sayfasına yönlendir.
+                return RedirectToAction("Index"); 
             }
 
             if (id != model.Id)
             {
-                return RedirectToAction("Index"); // Id uyuşmazlığı durumunda, Index sayfasına yönlendir.
+                return RedirectToAction("Index"); 
             }
 
             if (ModelState.IsValid)
@@ -169,7 +169,7 @@ namespace LMS_Project.Controllers
 
                 if (existingUser == null)
                 {
-                    return RedirectToAction("Index"); // Kullanıcı bulunamazsa, Index sayfasına yönlendir.
+                    return RedirectToAction("Index"); 
                 }
 
                 existingUser.FirstName = model.FirstName;
@@ -194,7 +194,7 @@ namespace LMS_Project.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index"); // Başarı durumunda Index sayfasına yönlendir.
+                    return RedirectToAction("Index"); 
                 }
 
                 foreach (var error in result.Errors)
@@ -207,16 +207,7 @@ namespace LMS_Project.Controllers
        
     
         }
-        [HttpGet]
-        public async Task<IActionResult> Delete()
-        {
         
-
-           
-            
-                return View();
-            
-        }
 
 
 
