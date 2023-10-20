@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<LMS_Project.Models.Assignment>
-
+@inject UserManager<AppUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
 @{
     ViewData["Title"] = "Index";
 }
@@ -32,9 +35,15 @@
         </tr>
     </thead>
     <tbody>
+      
+       
 @foreach (var item in Model) {
-        <tr>
-            <td>
+
+
+            if (item.Course.Instructor == user.Id || User.IsInRole("Admin"))
+            {
+                <tr>
+                    <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
@@ -51,7 +60,7 @@
                 <a asp-action="Details" asp-route-id="@item.UniqueId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.UniqueId">Delete</a>
             </td>
-        </tr>
+        </tr>}
 }
     </tbody>
 </table>

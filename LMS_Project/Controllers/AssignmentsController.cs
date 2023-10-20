@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LMS_Project.Data;
 using LMS_Project.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LMS_Project.Controllers
 {
@@ -15,9 +16,11 @@ namespace LMS_Project.Controllers
 	public class AssignmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AssignmentsController(ApplicationDbContext context)
+        public AssignmentsController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -48,10 +51,26 @@ namespace LMS_Project.Controllers
         }
 
         // GET: Assignments/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "Title");
+            var user = await _userManager.GetUserAsync(User);
+            
+            if (User.IsInRole("Admin"))
+            {
+                var courses = _context.Courses.ToList();
+                ViewData["CourseId"] = new SelectList(courses, "CourseId", "Title");
             return View();
+            }
+            else
+            {
+                // Eğitmenin kendi kurslarını görmesini sağlayın
+                var courses = _context.Courses
+               .Where(course => course.Instructor == user.Id)
+               .ToList();
+                ViewData["CourseId"] = new SelectList(courses, "CourseId", "Title");
+                return View();
+            }           
+            
         }
 
         // POST: Assignments/Create
